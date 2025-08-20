@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS genres(
 genre_id SERIAL PRIMARY KEY,
-name_genre VARCHAR(20) NOT NULL
+name_genre VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS musicians(
@@ -11,20 +11,21 @@ name_musician VARCHAR(50) NOT NULL
 CREATE TABLE IF NOT EXISTS albums(
 album_id SERIAL PRIMARY KEY,
 album_title VARCHAR(50) NOT NULL,
-years_of_issue DATE
+years_of_issue DATE CHECK (years_of_issue >= '1900-01-01 00:00:00')
 );
 
 CREATE TABLE IF NOT EXISTS tracks(
 track_id SERIAL PRIMARY KEY,
 track_title VARCHAR(50) NOT NULL,
-duratuon INT,
-album_id INT REFERENCES albums(album_id)
+duration INT CHECK (duration < 600),
+album_id INT REFERENCES albums(album_id),
+CONSTRAINT albums FOREIGN KEY(album_id) REFERENCES albums(album_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS collections(
 collection_id SERIAL PRIMARY KEY,
 collecrion_title VARCHAR(50),
-years_of_issue DATE
+years_of_issue DATE CHECK (years_of_issue >= '1900-01-01 00:00:00')
 );
 
 CREATE TABLE IF NOT EXISTS genres_musicians(

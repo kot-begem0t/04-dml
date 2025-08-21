@@ -30,7 +30,7 @@ VALUES
 ('Dar, Unde Eşti…', '1999-09-02 00:00:00'),
 ('Empty', '1900-01-01 00:00:00');
 
-INSERT INTO collections(collecrion_title, years_of_issue)
+INSERT INTO collections(collection_title, years_of_issue)
 VALUES
 ('After 250 seconds', '2018-01-01 00:00:00'),
 ('Before 250 seconds', '2020-01-01 00:00:00'),

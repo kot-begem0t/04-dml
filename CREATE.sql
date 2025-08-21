@@ -25,7 +25,7 @@ CONSTRAINT albums FOREIGN KEY(album_id) REFERENCES albums(album_id) ON DELETE CA
 
 CREATE TABLE IF NOT EXISTS collections(
 collection_id SERIAL PRIMARY KEY,
-collecrion_title VARCHAR(50),
+collection_title VARCHAR(50),
 years_of_issue DATE CHECK (years_of_issue >= '1900-01-01 00:00:00')
 );
 

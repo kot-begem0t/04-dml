@@ -35,15 +35,46 @@ JOIN genres g ON gm.genre_id = g.genre_id
 GROUP BY g.name_genre
 ORDER BY g.name_genre;
 
+
 --2. Количество треков, вошедших в альбомы 2019–2020 годов.
-SELECT * FROM tracks
-;
+--Должно быть 6 треков
+SELECT COUNT(*) FROM tracks t
+JOIN albums a ON a.album_id = t.album_id
+WHERE a.years_of_issue BETWEEN '2019-01-01' AND '2020-12-31';
 
-SELECT * FROM albums
-WHERE years_of_issue BETWEEN '2019-01-01' AND '2020-12-31'
-;
+--3. Средняя продолжительность треков по каждому альбому.
+SELECT a.album_title, CAST(AVG(t.duration) AS NUMERIC(16,2)) FROM tracks t
+JOIN albums a ON a.album_id = t.album_id
+GROUP BY a.album_title;
 
-SELECT a.album_title COUNT(t.track_title) FROM tracks t
-JOIN albums a ON a.alubm_id = t.album_id
+--4. Все исполнители, которые не выпустили альбомы в 2020 году.
+SELECT m.name_musician FROM musicians m
+JOIN albums_musicians am ON m.musician_id = am.musician_id
+JOIN albums a ON am.album_id = a.album_id
+WHERE a.years_of_issue NOT BETWEEN '2020-01-01' AND '2020-12-31'
+GROUP BY m.name_musician;
+
+--5. Названия сборников, в которых присутствует конкретный исполнитель (выберите его сами).
+SELECT c.collection_title FROM tracks t
+JOIN albums a ON t.album_id = a.album_id
+JOIN collection_tracks ct ON t.track_id = ct.track_id
+JOIN collections c ON ct.collection_id = c.collection_id
+JOIN albums_musicians am ON t.album_id = am.album_id
+JOIN musicians m ON am.musician_id = m.musician_id
+WHERE m.name_musician IN ('Imagine Dragons')
+GROUP BY c.collection_title;
+
+
+--Задание 4
+--1. Названия альбомов, в которых присутствуют исполнители более чем одного жанра.
+--Только "plenka" имеет 1 жанр
+SELECT a.album_title FROM musicians m
+JOIN genres_musicians gm ON m.musician_id = gm.musician_id
+JOIN genres g ON gm.genre_id = g.genre_id
+JOIN albums_musicians am ON m.musician_id = am.musician_id
+JOIN albums a ON am.album_id = a.album_id
+-- У меня нет идей, как можно использовать WHERE здесь, чтобы снизить нагрузку на БД 
 GROUP BY a.album_title
-;
+HAVING COUNT(g.name_genre) > 1
+
+--2. Наименования треков, которые не входят в сборники.

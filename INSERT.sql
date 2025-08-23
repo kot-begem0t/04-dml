@@ -28,6 +28,8 @@ VALUES
 ('Bury the Hatchet', '1999-04-19 00:00:00'),
 ('DiscO-Zone', '2004-06-06 00:00:00'),
 ('Dar, Unde Eşti…', '1999-09-02 00:00:00'),
+--Альбом ниже не имеет связей с исполнителями, хотя есть треки которые в действительности
+--имеют исполнителей, которые добавлены.
 ('without album', '1900-01-01 00:00:00');
 
 INSERT INTO collections(collection_title, years_of_issue)
@@ -58,7 +60,11 @@ VALUES
 ('Fiesta de la noche', 244, 7),
 ('De ce plang chitarele', 253, 7), 
 ('M-as trezi', 247, 8),
-('Dar, unde esti...', 234, 8);
+('Dar, unde esti...', 234, 8),
+--Ниже 2 трека для задания 4.2
+('WithoutCollection#1', 101, 9),
+('WithoutCollection#2', 102, 9);
+
 
 INSERT INTO albums_musicians(musician_id, album_id)
 VALUES
@@ -87,11 +93,12 @@ VALUES
 
 INSERT INTO collection_tracks(track_id, collection_id)
 VALUES
-(8, 1),
-(9, 1),
 (10, 1),
 (11, 1),
 (12, 1),
+(14, 1),
+(15, 1),
+(18, 1),
 (1, 2),
 (2, 2),
 (3, 2),
@@ -99,10 +106,13 @@ VALUES
 (5, 2),
 (6, 2),
 (7, 2),
+(8, 2),
+(9, 2),
 (13, 2),
-(14, 2),
-(15, 2),
 (16, 2),
+(17, 2),
+(19, 2),
+(20, 2),
 (2, 3),
 (4, 3),
 (5, 3),
